@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $data = $request->validated();
         try {
-            return ReturnApi::Success('Usuário criado com sucesso', $data, User::create([
+            return ReturnApi::Success('Usuário criado com sucesso', User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password'])
