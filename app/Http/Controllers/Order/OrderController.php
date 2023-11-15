@@ -36,4 +36,9 @@ class OrderController extends Controller
         $product = Product::find($productId);
         $product->decrement('stock', $quantity);
     }
+
+    public function get()
+    {
+        return ReturnApi::Success('Pedidos', OrderDetail::get());
+    }
 }
