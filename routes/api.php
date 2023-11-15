@@ -23,5 +23,6 @@ Route::middleware('authJwt')->group(function () {
         Route::post('/', [UserController::class, 'create']);
         Route::put('/{user_id}', [UserController::class, 'update']);
         Route::get('/{user_id}', [UserController::class, 'find']);
+        Route::delete('/{user_id}', [UserController::class, 'delete']);
     });
 });

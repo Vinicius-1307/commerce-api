@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Builder\ReturnApi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\DeleteUserRequest;
 use App\Http\Requests\User\FindUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
@@ -46,5 +47,10 @@ class UserController extends Controller
     public function find(FindUserRequest $request)
     {
         return ReturnApi::Success('Usuário encontrado.', User::find($request->validated()['id']));
+    }
+
+    public function delete(DeleteUserRequest $request)
+    {
+        return ReturnApi::Success('Usuário deletado.', User::find($request->validated()['id'])->delete());
     }
 }
