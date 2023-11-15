@@ -15,10 +15,8 @@ class CreateUserHasProductTable extends Migration
     {
         Schema::create('user_has_product', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('CASCADE');
+            $table->unsignedBigInteger('product_id')->constrained('products')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
