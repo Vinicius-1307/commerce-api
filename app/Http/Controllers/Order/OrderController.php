@@ -5,24 +5,23 @@ namespace App\Http\Controllers\Order;
 use App\Builder\ReturnApi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\CreateOrderRequest;
+use App\Http\Requests\Order\GetOrdersRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function create(CreateOrderRequest $request)
     {
         $data = $request->validated();
-
-        $order = Order::create([
-            'user_id' => $data['user_id']
-        ]);
+        $user = Auth::id();
 
         foreach ($data['products'] as $product) {
             OrderDetail::create([
-                'order_id' => $order->id,
+                'user_id' => $user,
                 'product_id' => $product['product_id'],
                 'quantity' => $product['quantity'],
             ]);
@@ -40,5 +39,20 @@ class OrderController extends Controller
     public function get()
     {
         return ReturnApi::Success('Pedidos', OrderDetail::get());
+    }
+
+    public function getByUser()
+    {
+        $user = Auth::id();
+        $orders = OrderDetail::select(
+            'products.name',
+            'products.price',
+            'order_details.quantity'
+        )
+            ->join('products', 'order_details.product_id', '=', 'products.id')
+            ->where('order_details.user_id', $user)
+            ->get();
+
+        return ReturnApi::Success('Pedidos do usuário', $orders);
     }
 }

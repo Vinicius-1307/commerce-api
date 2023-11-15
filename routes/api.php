@@ -43,5 +43,6 @@ Route::middleware('authJwt')->group(function () {
     Route::prefix('orders')->group(function () {
         Route::post('/', [OrderController::class, 'create']);
         Route::get('/', [OrderController::class, 'get']);
+        Route::get('/by-user', [OrderController::class, 'getByUser']);
     });
 });
