@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('authJwt')->group(function () {
-    Route::prefix('user')->group(function () {
+    Route::prefix('users')->group(function () {
         Route::post('/', [UserController::class, 'create']);
+        Route::put('/{user_id}', [UserController::class, 'update']);
     });
 });
