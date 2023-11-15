@@ -43,7 +43,7 @@ class CreateProductRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'quantity' => [
+            'stock' => [
                 'required',
                 'integer'
             ]
@@ -62,8 +62,8 @@ class CreateProductRequest extends FormRequest
             'description.required' => 'O campo (description) é obrigatório.',
             'category.string' => 'O campo (category) deve ser uma string.',
             'category.required' => 'O campo (category) é obrigatório.',
-            'quantity.integer' => 'O campo (quantity) deve ser um número.',
-            'quantity.required' => 'O campo (quantity) é obrigatório.',
+            'stock.integer' => 'O campo (stock) deve ser um número.',
+            'stock.required' => 'O campo (stock) é obrigatório.',
         ];
     }
 
