@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Builder\ReturnApi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\FindUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,5 +41,10 @@ class UserController extends Controller
         } catch (\Error $error) {
             return ReturnApi::Error('Ocorreu um erro ao criar o usuário', $error->getMessage(), 400);
         }
+    }
+
+    public function find(FindUserRequest $request)
+    {
+        return ReturnApi::Success('Usuário encontrado.', User::find($request->validated()['id']));
     }
 }

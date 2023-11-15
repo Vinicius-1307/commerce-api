@@ -22,5 +22,6 @@ Route::middleware('authJwt')->group(function () {
     Route::prefix('users')->group(function () {
         Route::post('/', [UserController::class, 'create']);
         Route::put('/{user_id}', [UserController::class, 'update']);
+        Route::get('/{user_id}', [UserController::class, 'find']);
     });
 });
