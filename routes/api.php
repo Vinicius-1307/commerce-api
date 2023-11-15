@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
@@ -35,5 +36,11 @@ Route::middleware('authJwt')->group(function () {
         Route::get('/', [ProductController::class, 'getAll']);
         Route::get('/{product_id}', [ProductController::class, 'find']);
         Route::delete('/{product_id}', [ProductController::class, 'delete']);
+    });
+});
+
+Route::middleware('authJwt')->group(function () {
+    Route::prefix('orders')->group(function () {
+        Route::post('/', [OrderController::class, 'create']);
     });
 });
