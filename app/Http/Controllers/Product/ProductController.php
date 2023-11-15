@@ -6,6 +6,7 @@ use App\Builder\ReturnApi;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\FindProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -24,6 +25,11 @@ class ProductController extends Controller
         } catch (\Error $e) {
             throw new ApiException('Houve um erro ao atualizar o produto.', $e->getMessage());
         }
+    }
+
+    public function find(FindProductRequest $request)
+    {
+        return ReturnApi::Success('Produto encontrado.', Product::find($request->validated()['id']));
     }
 
     public function getAll()
