@@ -34,5 +34,6 @@ Route::middleware('authJwt')->group(function () {
         Route::put('/{product_id}', [ProductController::class, 'update']);
         Route::get('/', [ProductController::class, 'getAll']);
         Route::get('/{product_id}', [ProductController::class, 'find']);
+        Route::delete('/{product_id}', [ProductController::class, 'delete']);
     });
 });
