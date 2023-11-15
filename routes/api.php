@@ -32,5 +32,6 @@ Route::middleware('authJwt')->group(function () {
     Route::prefix('products')->group(function () {
         Route::post('/', [ProductController::class, 'create']);
         Route::put('/{product_id}', [ProductController::class, 'update']);
+        Route::get('/', [ProductController::class, 'getAll']);
     });
 });

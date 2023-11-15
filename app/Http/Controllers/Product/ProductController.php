@@ -25,4 +25,9 @@ class ProductController extends Controller
             throw new ApiException('Houve um erro ao atualizar o produto.', $e->getMessage());
         }
     }
+
+    public function getAll()
+    {
+        return ReturnAPi::Success('Todos os produtos', Product::get());
+    }
 }
