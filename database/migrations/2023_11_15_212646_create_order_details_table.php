@@ -15,7 +15,7 @@ class CreateOrderDetailsTable extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id')->constrained('orders')->onDelete('CASCADE');
+            $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('CASCADE');
             $table->unsignedBigInteger('product_id')->constrained('products')->onDelete('CASCADE');
             $table->integer('quantity');
             $table->timestamps();

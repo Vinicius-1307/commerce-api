@@ -26,10 +26,6 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => [
-                'required',
-                'exists:users,id'
-            ],
             'products' => [
                 'required',
                 'array'
@@ -49,8 +45,6 @@ class CreateOrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'user_id.required' => 'O campo (user_id) é obrigatório.',
-            'user_id.exists' => 'O usuário não existe.',
             'products.required' => 'O campo (products) é obrigatório.',
             'products.array' => 'O campo (products) deve ser um array.',
             'products.*.product_id.required' => 'O campo (product_id) é obrigatório.',
@@ -64,7 +58,6 @@ class CreateOrderRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'user_id' => $this->input('user_id', null),
             'products' => $this->input('products', null),
         ]);
     }
