@@ -43,14 +43,13 @@ class OrderController extends Controller
 
     public function getByUser()
     {
-        $user = Auth::id();
         $orders = OrderDetail::select(
             'products.name',
             'products.price',
             'order_details.quantity'
         )
             ->join('products', 'order_details.product_id', '=', 'products.id')
-            ->where('order_details.user_id', $user)
+            ->where('order_details.user_id', Auth::id())
             ->get();
 
         return ReturnApi::Success('Pedidos do usuário', $orders);
