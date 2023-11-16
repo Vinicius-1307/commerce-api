@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Order;
 
 use App\Builder\ReturnApi;
+use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\CreateOrderRequest;
+use App\Http\Requests\Order\DeleteOrderRequest;
 use App\Http\Requests\Order\GetOrdersRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -53,5 +55,14 @@ class OrderController extends Controller
             ->get();
 
         return ReturnApi::Success('Pedidos do usuário', $orders);
+    }
+
+    public function delete(DeleteOrderRequest $request)
+    {
+        try {
+            return ReturnApi::Success('Pedido deletado.', OrderDetail::find($request->validated()['id'])->delete());
+        } catch (\Error $e) {
+            throw new ApiException('Houve um erro ao deletar o pedido.', $e->getMessage());
+        }
     }
 }
