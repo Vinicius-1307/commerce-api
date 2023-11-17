@@ -45,5 +45,6 @@ Route::middleware('authJwt')->group(function () {
         Route::get('/', [OrderController::class, 'get']);
         Route::get('/by-user', [OrderController::class, 'getByUser']);
         Route::delete('/{order_id}', [OrderController::class, 'delete']);
+        Route::put('/{order_id}', [OrderController::class, 'update']);
     });
 });

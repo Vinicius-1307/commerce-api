@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\CreateOrderRequest;
 use App\Http\Requests\Order\DeleteOrderRequest;
 use App\Http\Requests\Order\GetOrdersRequest;
+use App\Http\Requests\Order\UpdateOrderRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -63,6 +64,30 @@ class OrderController extends Controller
             return ReturnApi::Success('Pedido deletado.', OrderDetail::find($request->validated()['id'])->delete());
         } catch (\Error $e) {
             throw new ApiException('Houve um erro ao deletar o pedido.', $e->getMessage());
+        }
+    }
+
+    public function update(UpdateOrderRequest $request)
+    {
+        $data = $request->validated();
+        $userId = Auth::id();
+        $productUsers = [];
+        try {
+            foreach ($data['products'] as $product) {
+                $product = OrderDetail::find($data['id']);
+                if ($product) {
+                    $product->update([
+                        'user_id' => $userId,
+                        'product_id' => $product['product_id'],
+                        'quantity' => $product['quantity'],
+                    ]);
+                }
+                $this->updateProductStock($product['product_id'], $product['quantity']);
+                $productUsers = $product;
+            }
+            return ReturnApi::Success('Pedido atualizado.', $productUsers);
+        } catch (\Error $e) {
+            throw new ApiException('Houve um erro ao atualizar o pedido.', $e->getMessage());
         }
     }
 }
