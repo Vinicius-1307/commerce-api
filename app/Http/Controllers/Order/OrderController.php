@@ -23,6 +23,8 @@ class OrderController extends Controller
         $user = Auth::id();
 
         foreach ($data['products'] as $product) {
+            $productHasStock = Product::find($product['product_id']);
+            if ($productHasStock->stock < $product['quantity']) throw new ApiException('Estoque insuficiente para o produto.');
             OrderDetail::create([
                 'user_id' => $user,
                 'product_id' => $product['product_id'],

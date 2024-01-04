@@ -49,7 +49,7 @@ class CreateOrderRequest extends FormRequest
             'products.array' => 'O campo (products) deve ser um array.',
             'products.*.product_id.required' => 'O campo (product_id) é obrigatório.',
             'products.*.product_id.exists' => 'O produto não existe.',
-            'products.*.quantity.required' => 'O campo (product_id) é obrigatório.',
+            'products.*.quantity.required' => 'O campo (quantity) é obrigatório.',
             'products.*.quantity.integer' => 'O campo (quantity) deve ser um inteiro.',
             'products.*.quantity.min' => 'O campo (quantity) deve ser maior que zero.',
         ];
